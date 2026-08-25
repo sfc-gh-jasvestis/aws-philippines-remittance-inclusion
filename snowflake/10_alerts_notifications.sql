@@ -8,7 +8,7 @@ USE SCHEMA APP;
 CREATE OR REPLACE NOTIFICATION INTEGRATION aws_philippines_remittance_inclusion_EMAIL_INT
   TYPE = EMAIL
   ENABLED = TRUE
-  ALLOWED_RECIPIENTS = ('jonathan.asvestis@snowflake.com');
+  ALLOWED_RECIPIENTS = ('<YOUR_EMAIL>');
 
 -- Alert: DEFAULT_SPIKE_ALERT
 CREATE OR REPLACE ALERT APP.DEFAULT_SPIKE_ALERT
@@ -22,7 +22,7 @@ IF (EXISTS (
 THEN
   CALL SYSTEM$SEND_EMAIL(
     'aws_philippines_remittance_inclusion_EMAIL_INT',
-    'jonathan.asvestis@snowflake.com',
+    '<YOUR_EMAIL>',
     '[ALERT] Financial Inclusion & Micro-lending Analytics: Default rate exceeding threshold for loan vintage',
     'Default rate exceeding threshold for loan vintage'
   );
@@ -41,7 +41,7 @@ IF (EXISTS (
 THEN
   CALL SYSTEM$SEND_EMAIL(
     'aws_philippines_remittance_inclusion_EMAIL_INT',
-    'jonathan.asvestis@snowflake.com',
+    '<YOUR_EMAIL>',
     '[ALERT] Financial Inclusion & Micro-lending Analytics: Credit scoring model stability index degrading',
     'Credit scoring model stability index degrading'
   );

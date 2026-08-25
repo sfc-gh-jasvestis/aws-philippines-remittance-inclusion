@@ -117,7 +117,7 @@ Run all scripts including AWS integration. Deploy QuickSight dashboard from `qui
 ## Business Impact
 
 Industry research and Snowflake customer outcomes:
-- **46% of Filipino adults (51M people) remain unbanked as of 2023** — [BSP Financial Inclusion Survey](https://www.bsp.gov.ph/SitePages/InclusiveFinance/FinancialInclusion.aspx)
+- **46% of Filipino adults (51M people) remain unbanked as of 2023** — [BSP Financial Inclusion Survey](https://www.bsp.gov.ph/SitePages/InclusiveFinance/InclusiveFinance.aspx)
 - **Alternative credit scoring expands lending access by 40-60% in emerging markets** — [World Bank](https://www.worldbank.org/en/publication/globalfindex)
 - **Philippine micro-lending market grew 45% in 2023 driven by digital lenders** — [SEC Philippines](https://www.sec.gov.ph/lending-companies/)
 - **ML-based credit scoring reduces default rates 20-30% vs traditional scorecards** — [McKinsey Banking](https://www.mckinsey.com/industries/financial-services/our-insights)

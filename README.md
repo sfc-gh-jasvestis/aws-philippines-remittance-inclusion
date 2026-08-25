@@ -121,7 +121,7 @@ Industry research and Snowflake customer outcomes:
 - **Alternative credit scoring expands lending access by 40-60% in emerging markets** — [World Bank](https://www.worldbank.org/en/topic/financialinclusion/publication/the-global-findex-database-2021)
 - **Philippine micro-lending market grew 45% in 2023 driven by digital lenders** — [SEC Philippines](https://www.sec.gov.ph/lending-companies/)
 - **ML-based credit scoring reduces default rates 20-30% vs traditional scorecards** — [McKinsey Banking](https://www.mckinsey.com/industries/financial-services/our-insights)
-
+- **Western Union** (Snowflake customer): processes 1B+ cross-border transactions on Snowflake with real-time compliance and fraud detection across 200+ countries -- [snowflake.com/customers/western-union](https://www.snowflake.com/en/customers/all-customers/case-study/western-union/)
 
 ## Key Demo Numbers
 

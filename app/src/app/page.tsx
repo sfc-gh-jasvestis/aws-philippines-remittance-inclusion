@@ -32,15 +32,22 @@ export default function HomePage() {
       .catch(() => {});
   }, []);
 
+
+  // KPI values come from /api/data, which reads CURATED.KPI_SUMMARY. The literal
+  // stays as a fallback so the card still renders if the API is unavailable.
+  const kpiVal = (title: string, fallback: string): string =>
+    (data?.kpiCards as { title: string; value: string }[] | undefined)
+      ?.find((k) => k.title === title)?.value ?? fallback;
+
   const title = narrative?.title || 'SEA AWS Demo';
 
   const executiveCockpit = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KPICard title="Unbanked Onboarded" value="2.4M" status="neutral" />
-        <KPICard title="Agent Network" value="42K" status="neutral" />
-        <KPICard title="Rural Coverage" value="78%" status="neutral" />
-        <KPICard title="Avg Remittance" value="₱8,400" status="neutral" />
+        <KPICard title="Unbanked Onboarded" value={kpiVal('Unbanked Onboarded', '2.4M')} status="neutral" />
+        <KPICard title="Agent Network" value={kpiVal('Agent Network', '42K')} status="neutral" />
+        <KPICard title="Rural Coverage" value={kpiVal('Rural Coverage', '78%')} status="neutral" />
+        <KPICard title="Avg Remittance" value={kpiVal('Avg Remittance', '₱8,400')} status="neutral" />
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="lg:col-span-1">
@@ -87,9 +94,9 @@ export default function HomePage() {
   const domainTab1 = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <KPICard title="Agent Uptime" value="94%" />
-        <KPICard title="Liquidity Issues" value="42/day" />
-        <KPICard title="Revenue/Agent" value="₱18K/mo" />
+        <KPICard title="Agent Uptime" value={kpiVal('Agent Uptime', '94%')} />
+        <KPICard title="Liquidity Issues" value={kpiVal('Liquidity Issues', '42/day')} />
+        <KPICard title="Revenue/Agent" value={kpiVal('Revenue/Agent', '₱18K/mo')} />
       </div>
       <Chart
         data={data?.detail || [{ x: 'Mon', y: 24 }, { x: 'Tue', y: 28 }, { x: 'Wed', y: 22 }, { x: 'Thu', y: 31 }, { x: 'Fri', y: 26 }, { x: 'Sat', y: 19 }, { x: 'Sun', y: 23 }]}

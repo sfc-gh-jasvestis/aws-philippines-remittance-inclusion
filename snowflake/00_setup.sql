@@ -1,16 +1,13 @@
--- ============================================================================
--- Financial Inclusion & Micro-lending Analytics
--- 46% of Filipino adults remain unbanked — Snowflake enables alternative credit scoring using remittance history and digital behavior, expanding lending access to millions through ML.CLASSIFICATION on non-traditional data.
--- ============================================================================
-USE ROLE ACCOUNTADMIN;
-CREATE DATABASE IF NOT EXISTS FINANCIAL_INCLUSION;
-CREATE WAREHOUSE IF NOT EXISTS INCLUSION_WH WAREHOUSE_SIZE = 'MEDIUM' AUTO_SUSPEND = 120 AUTO_RESUME = TRUE;
-USE DATABASE FINANCIAL_INCLUSION;
-CREATE SCHEMA IF NOT EXISTS RAW;
-CREATE SCHEMA IF NOT EXISTS CURATED;
-CREATE SCHEMA IF NOT EXISTS ML;
-CREATE SCHEMA IF NOT EXISTS AI;
-CREATE SCHEMA IF NOT EXISTS SEARCH;
-CREATE SCHEMA IF NOT EXISTS APP;
+-- Generated from generator/demo_specs/aws-philippines-remittance-inclusion.json
+-- Regenerate with: python3 generator/gen_repo_docs.py aws-philippines-remittance-inclusion
+-- This is the schema that is actually deployed for PH_REMITTANCE_INCLUSION.
 
-USE WAREHOUSE INCLUSION_WH;
+-- PH_REMITTANCE_INCLUSION  (Financial Inclusion & Micro-lending Analytics)
+-- generated from generator/demo_specs/aws-philippines-remittance-inclusion.json - do not hand-edit
+CREATE DATABASE IF NOT EXISTS PH_REMITTANCE_INCLUSION;
+CREATE SCHEMA IF NOT EXISTS PH_REMITTANCE_INCLUSION.RAW;
+CREATE SCHEMA IF NOT EXISTS PH_REMITTANCE_INCLUSION.CURATED;
+CREATE SCHEMA IF NOT EXISTS PH_REMITTANCE_INCLUSION.APP;
+USE DATABASE PH_REMITTANCE_INCLUSION;
+
+-- 5 real regions; entity names carry their region so the two always agree

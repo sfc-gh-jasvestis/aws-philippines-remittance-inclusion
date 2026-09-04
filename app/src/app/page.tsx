@@ -53,6 +53,7 @@ export default function HomePage() {
         <div className="lg:col-span-1">
           <GeoMap
             country="philippines"
+            regions={data?.regions}
             markers={[{"label": "Manila", "value": "Dense coverage", "color": "green", "size": "lg"}, {"label": "Cebu", "value": "Good coverage", "color": "green", "size": "md"}, {"label": "Davao", "value": "Growing network", "color": "amber", "size": "md"}, {"label": "Zamboanga", "value": "Underserved", "color": "red", "size": "md"}, {"label": "Cagayan de Oro", "value": "Expanding", "color": "amber", "size": "sm"}]}
             routes={[]}
             title="Geographic Overview"
@@ -113,7 +114,7 @@ export default function HomePage() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Chart
-          data={data?.breakdown || [{ label: 'Zone North', value: 35 }, { label: 'Zone Central', value: 28 }, { label: 'Zone South', value: 22 }, { label: 'Zone East', value: 15 }]}
+          data={data?.regionAlerts || [{ label: 'Zone North', value: 35 }, { label: 'Zone Central', value: 28 }, { label: 'Zone South', value: 22 }, { label: 'Zone East', value: 15 }]}
           type="pie"
           xKey="label"
           yKeys={[{ key: 'value', name: 'Score' }]}

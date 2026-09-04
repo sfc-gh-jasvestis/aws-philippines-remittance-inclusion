@@ -53,6 +53,7 @@ export default function HomePage() {
         <div className="lg:col-span-1">
           <GeoMap
             country="philippines"
+            labels={{ entity: 'Regions', event: 'Wallet Actions', alert: 'Dormant Wallets' }}
             regions={data?.regions}
             markers={[{"label": "Manila", "value": "Dense coverage", "color": "green", "size": "lg"}, {"label": "Cebu", "value": "Good coverage", "color": "green", "size": "md"}, {"label": "Davao", "value": "Growing network", "color": "amber", "size": "md"}, {"label": "Zamboanga", "value": "Underserved", "color": "red", "size": "md"}, {"label": "Cagayan de Oro", "value": "Expanding", "color": "amber", "size": "sm"}]}
             routes={[]}
@@ -83,8 +84,13 @@ export default function HomePage() {
         columns={[
           { key: 'id', header: '#' },
           { key: 'name', header: 'Region' },
+          { key: 'region', header: 'Region' },
           { key: 'status', header: 'Coverage' },
-          { key: 'value', header: 'Agents' },
+          { key: 'm1', header: 'Agents' },
+          { key: 'm2', header: 'Remittance' },
+          { key: 'm3', header: 'Agent Uptime' },
+          { key: 'events', header: 'Wallet Actions' },
+          { key: 'alerts', header: 'Dormant Wallets' },
         ]}
         data={data?.entities || []}
         title="Regional Inclusion Dashboard"

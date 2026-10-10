@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "repo": "aws-philippines-remittance-inclusion",
+  "operation": "on-demand",
+  "data_classification": "synthetic demonstration only",
+  "currency": "PHP",
+  "grains": {
+    "RAW.SITES": "one row per fictional remittance pickup site (city, format, risk tier)",
+    "RAW.SITE_DAILY": "one row per site per day (90 days)",
+    "RAW.PARTNER_DOCUMENTS": "one row per site (partner accreditation document snapshot)",
+    "CURATED.PERFORMANCE_SUMMARY": "one row per site",
+    "CURATED.TREND_ANALYSIS": "one row per day",
+    "CURATED.BLOCKER_SUMMARY": "one row per blocker type",
+    "CURATED.KPI_SUMMARY": "one row per KPI",
+    "ML.DROPOUT_RISK_SCORES": "one row per site (latest day)"
+  },
+  "metrics": {
+    "Blocker-Free Pickup Rate": "100 * (SUM(PICKUP_COUNT) - SUM(BLOCKER_COUNT)) / SUM(PICKUP_COUNT)",
+    "Onboarding Blockers": "SUM(BLOCKER_COUNT)",
+    "Abandoned-Application Blockers": "SUM(DROPOUT_COUNT)",
+    "Blocker Dropout Rate": "100 * SUM(DROPOUT_COUNT) / SUM(BLOCKER_COUNT)",
+    "Same-Day SLA Breaches": "SUM(SLA_BREACHED)",
+    "Remittance Payouts (PHP M)": "SUM(PAYOUT_PHP) / 1e6",
+    "Remittance Pickups": "SUM(PICKUP_COUNT)",
+    "Dormant-Account Follow-Up Completion": "100 * SUM(FOLLOWUP_COMPLETED) / SUM(FOLLOWUP_DUE)",
+    "Sites Monitored": "COUNT(RAW.SITES)",
+    "Partner Document Coverage": "100 * SUM(LEAST(ON_FILE_QTY, REQUIRED_QTY)) / SUM(REQUIRED_QTY)",
+    "Partner Documents Pending": "SUM(PENDING_QTY)",
+    "Savings Accounts Opened": "SUM(ACCOUNTS_OPENED)",
+    "Pickup-to-Account Conversion": "100 * SUM(ACCOUNTS_OPENED) / SUM(PICKUP_COUNT)"
+  },
+  "chart_bindings": {
+    "daily_blockers": [
+      "CURATED.TREND_ANALYSIS.METRIC_DATE",
+      "BLOCKER_COUNT",
+      "DROPOUT_COUNT"
+    ],
+    "blockers_by_type": [
+      "CURATED.BLOCKER_SUMMARY.BLOCKER_TYPE",
+      "BLOCKER_COUNT",
+      "DROPOUT_COUNT"
+    ],
+    "followup_vs_dropouts": [
+      "CURATED.PERFORMANCE_SUMMARY.FOLLOWUP_COMPLETION_PCT",
+      "DROPOUT_COUNT"
+    ],
+    "quicksight_dropout_risk": [
+      "ENTITY_ID",
+      "MAX(DROPOUT_PROB_7D)"
+    ]
+  },
+  "freshness": "MAX(EVENT_DATE) is an observation watermark; requestedAt is not freshness",
+  "required_capabilities": {
+    "core_pipeline": "Curated KPIs reconcile to a RAW recomputation (run_core.py checks this on every build)",
+    "forecast_and_anomaly": "14-day programme-wide blocker-volume FORECAST; eKYC error rate ANOMALY_DETECTION (train 75 days, detect last 15)",
+    "search": "Cortex Search SEARCH.ONBOARDING_SOP_SEARCH over synthetic onboarding-blocker SOPs (one per site format and blocker type)",
+    "semantic_analytics": "Semantic view APP.INCLUSION_ANALYTICS and Cortex Agent APP.INCLUSION_OPS_AGENT using analyst + search tools",
+    "grounded_ai": "Agent answers return generated SQL and SOP citations; the action memo uses only KPI, site, blocker-type and risk rows",
+    "quicksight": "DIRECT_QUERY dashboard (sites, daily blockers, abandoned applications by site, abandoned-application risk, pickup events loaded) through a read-only Snowflake service user",
+    "quicksight_q": "Amazon Q topic over the curated datasets for natural-language questions",
+    "aws_ingestion": "Amazon Data Firehose -> S3 -> Snowpipe AUTO_INGEST into RAW.LIVE_PICKUPS",
+    "notifications": "APP.LIVE_BLOCKER_ALERT logs new BLOCKER events to APP.ALERT_LOG and emails via SYSTEM$SEND_EMAIL; alert and tasks suspended between demos",
+    "orchestration": "Task graph APP.TASK_REFRESH_CURATED -> APP.TASK_RESCORE_RISK run on demand (EXECUTE TASK)",
+    "app_deployment": "SPCS service APP.PH_REMITTANCE_INCLUSION_APP; routes /api/data, /api/ask, /api/agent",
+    "dropout_risk_model": "Snowflake ML CLASSIFICATION of P(abandoned-application blocker at the site in the next 7 days), evaluated on an out-of-time holdout"
+  },
+  "builds": {
+    "snowflake": {
+      "database": "PHILIPPINES_REMITTANCE_INCLUSION_SNOWFLAKE",
+      "app_setting": "DEMO_PLATFORM=snowflake",
+      "memo": "Cortex AI_COMPLETE (claude-sonnet-4-5)",
+      "live_pickups": "APP.SIMULATE_PICKUPS(n)"
+    },
+    "aws": {
+      "database": "PHILIPPINES_REMITTANCE_INCLUSION_AWS",
+      "app_setting": "DEMO_PLATFORM=aws",
+      "memo": "Amazon Bedrock Claude Sonnet 4.5 via APP.BEDROCK_GENERATE",
+      "capabilities": "see required_capabilities",
+      "live_pickups": "Amazon Data Firehose -> S3 -> Snowpipe"
+    }
+  }
+}

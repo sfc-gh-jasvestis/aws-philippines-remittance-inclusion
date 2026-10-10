@@ -1,0 +1,76 @@
+{
+  "title": "Philippines Remittance Inclusion Operations",
+  "duration": "6 minutes",
+  "thesis": "Snowflake turns daily activity from 40 synthetic remittance pickup sites in the inclusion programme of a fictional Philippine rural bank into account-opening and onboarding-blocker KPIs, 7-day abandoned-application risk scores, eKYC error-rate anomalies and grounded AI answers, all on curated dynamic tables.",
+  "tabs": [
+    {
+      "id": "executive-cockpit",
+      "persona": { "name": "Marivic Dela Rosa-Santos", "role": "Head of Remittance Inclusion Programme (fictional)", "avatar": "" },
+      "talking_points": [
+        "Blocker-free pickup rate, savings accounts opened, pickup-to-account conversion and abandoned-application blockers for 40 sites in Batangas City, Tacloban City, General Santos City, Angeles City and Naga City.",
+        "Every KPI is a numerator over a denominator in a curated dynamic table, so it can be traced back to site-day rows.",
+        "The blocker-type chart shows which onboarding blockers end in abandoned applications and which always resolve, such as area power interruptions."
+      ],
+      "show": ["KPI cards", "Daily onboarding blockers", "Blockers by type", "Site table"],
+      "call_out": "One governed set of inclusion KPIs, traceable to source rows",
+      "transition": { "next_tab": "predictive", "line": "Which sites should the onboarding desk watch first?" }
+    },
+    {
+      "id": "predictive",
+      "persona": { "name": "Joel Ramirez Lim", "role": "Onboarding Operations Analyst (fictional)", "avatar": "" },
+      "talking_points": [
+        "Snowflake ML classification scores each site's probability of an onboarding blocker that ends in an abandoned application in the next 7 days.",
+        "The holdout line shows precision and recall on the most recent 14 labelled days, against the base rate.",
+        "Anomaly detection flags eKYC error rate outliers per site, and the forecast projects programme-wide blocker volume for 14 days."
+      ],
+      "show": ["Holdout metrics", "Risk by site", "Blocker forecast", "eKYC error-rate anomalies"],
+      "call_out": "Honest, evaluated ML inside the data platform",
+      "transition": { "next_tab": "planning", "line": "Are dormant-account follow-ups and partner documents keeping up?" }
+    },
+    {
+      "id": "planning",
+      "persona": { "name": "Marivic Dela Rosa-Santos", "role": "Head of Remittance Inclusion Programme (fictional)", "avatar": "" },
+      "talking_points": [
+        "Dormant-account follow-up completion, partner document coverage and pending documents frame the site control gaps.",
+        "Follow-up completion against abandoned applications by site shows where missed follow-ups and dropouts move together; it is an association, not proof of cause.",
+        "The action memo drafts three prioritised actions from the KPI, site, blocker-type and risk tables only."
+      ],
+      "show": ["Follow-up completion and partner document coverage", "Follow-up completion vs abandoned applications", "Action memo"],
+      "call_out": "Grounded draft actions, with a human in the loop",
+      "transition": { "next_tab": "live", "line": "What happens when a site logs a blocker right now?" }
+    },
+    {
+      "id": "live",
+      "persona": { "name": "Joel Ramirez Lim", "role": "Onboarding Operations Analyst (fictional)", "avatar": "" },
+      "talking_points": [
+        "Live remittance pickup events land in RAW.LIVE_PICKUPS, from the simulator or from Amazon Data Firehose through Snowpipe.",
+        "The Snowflake alert logs BLOCKER events with an SOP hint and the site's current risk band, then emails the on-call analyst."
+      ],
+      "show": ["Events loaded and lag", "Latest pickup events", "Alert log"],
+      "call_out": "From onboarding blocker to ticket in one platform",
+      "transition": { "next_tab": "ask-ai", "line": "Now ask the data directly." }
+    },
+    {
+      "id": "ask-ai",
+      "persona": { "name": "Marivic Dela Rosa-Santos", "role": "Head of Remittance Inclusion Programme (fictional)", "avatar": "" },
+      "talking_points": [
+        "The Cortex Agent uses Cortex Analyst over the semantic view for metrics, and Cortex Search over 14 synthetic onboarding-blocker SOPs.",
+        "Each answer shows the generated SQL and the SOPs it cited."
+      ],
+      "show": ["Ask a sample question", "Generated SQL", "SOP citations"],
+      "call_out": "Natural-language answers you can check",
+      "transition": { "next_tab": "architecture", "line": "Here is how it is built." }
+    },
+    {
+      "id": "architecture",
+      "persona": { "name": "Marivic Dela Rosa-Santos", "role": "Head of Remittance Inclusion Programme (fictional)", "avatar": "" },
+      "talking_points": [
+        "Two builds share one core: Snowflake only, or AWS + Snowflake (Data Firehose, Bedrock, QuickSight and Amazon Q).",
+        "Everything shown is synthetic demo data, rebuilt reproducibly from the repo."
+      ],
+      "show": ["Both architecture diagrams"],
+      "call_out": "One governed core, with an optional AWS edge",
+      "transition": { "next_tab": "", "line": "Questions?" }
+    }
+  ]
+}
